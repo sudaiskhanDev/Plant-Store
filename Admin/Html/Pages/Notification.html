@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="../../Css/Admin Dashboard.css">
-<style>
-    /* ========== SUPPLIER ORDERS - MINT CONTRAST THEME (NO SIDEBAR) ========== */
+ <style>
+        /* ========== NOTIFICATIONS CRUD - MINT CONTRAST THEME (NO SIDEBAR) ========== */
 /* Color Theme:
    Light Base: #FFFFFF (White)
    Highlight (Light): #90EE90 (Light Green / Mint)
@@ -317,7 +317,7 @@ body {
         transform: scale(0.96);
     }
 }
-</style>
+    </style>
     <title>Document</title>
 </head>
 <body>
@@ -342,31 +342,26 @@ body {
         
        <div class="dashboard-content">
        
-           <h2>Supplier Orders</h2>
+           <h2>Notifications</h2>
 
 <!-- FORM -->
 <div style="background:#fff;padding:10px;margin-bottom:20px;">
 
     <input type="hidden" id="edit_id">
 
-    <select id="supplier_id">
-        <option value="">Select Supplier</option>
+    <input type="number" id="user_id" placeholder="User ID">
+    <input type="text" id="message" placeholder="Message">
+
+    <select id="type">
+        <option value="">Type</option>
+        <option value="stock">Stock</option>
+        <option value="maintenance">Maintenance</option>
+        <option value="order">Order</option>
     </select>
 
-    <select id="plant_id">
-        <option value="">Select Plant</option>
-    </select>
+    <input type="date" id="date">
 
-    <input type="number" id="quantity" placeholder="Quantity">
-
-    <select id="delivery_status">
-        <option value="">Status</option>
-        <option value="pending">Pending</option>
-        <option value="delivered">Delivered</option>
-        <option value="cancelled">Cancelled</option>
-    </select>
-
-    <button onclick="saveSupplierOrder()">Save</button>
+    <button onclick="saveNotification()">Save</button>
 </div>
 
 <!-- TABLE -->
@@ -374,15 +369,15 @@ body {
     <thead>
         <tr>
             <th>ID</th>
-            <th>Supplier</th>
-            <th>Plant</th>
-            <th>Qty</th>
-            <th>Status</th>
+            <th>User</th>
+            <th>Message</th>
+            <th>Type</th>
+            <th>Date</th>
             <th>Action</th>
         </tr>
     </thead>
 
-    <tbody id="supplierOrderTable"></tbody>
+    <tbody id="notificationTable"></tbody>
 </table>
              
         </div>
@@ -391,13 +386,11 @@ body {
     </div>
 <script>
 
-const API = "http://127.0.0.1:8000/api/supplier-orders";
-const SUPPLIER_API = "http://127.0.0.1:8000/api/suppliers";
-const PLANT_API = "http://127.0.0.1:8000/api/plants";
+const API = "http://127.0.0.1:8000/api/notifications";
 
 
-// ================= LOAD TABLE =================
-function loadSupplierOrders() {
+// ================= READ =================
+function loadNotifications() {
 
 fetch(API)
 .then(res => res.json())
@@ -405,61 +398,25 @@ fetch(API)
 
 let rows = "";
 
-data.forEach(item => {
+data.forEach(n => {
 
 rows += `
 <tr>
-<td>${item.supplier_order_id}</td>
-<td>${item.supplier_id}</td>
-<td>${item.plant_id}</td>
-<td>${item.quantity}</td>
-<td>${item.delivery_status}</td>
+<td>${n.notification_id}</td>
+<td>${n.user_id}</td>
+<td>${n.message}</td>
+<td>${n.type}</td>
+<td>${new Date(n.date).toLocaleDateString()}</td>
 <td>
-<button onclick="editSupplierOrder(${item.supplier_order_id}, ${item.supplier_id}, ${item.plant_id}, ${item.quantity}, '${item.delivery_status}')">Edit</button>
-<button onclick="deleteSupplierOrder(${item.supplier_order_id})">Delete</button>
+<button onclick="editNotification(${n.notification_id}, ${n.user_id}, '${n.message}', '${n.type}', '${n.date}')">Edit</button>
+<button onclick="deleteNotification(${n.notification_id})">Delete</button>
 </td>
 </tr>
 `;
 
 });
 
-document.getElementById("supplierOrderTable").innerHTML = rows;
-
-});
-
-}
-
-
-// ================= LOAD DROPDOWNS =================
-function loadDropdowns() {
-
-// suppliers
-fetch(SUPPLIER_API)
-.then(res => res.json())
-.then(res => {
-
-let opt = `<option value="">Select Supplier</option>`;
-
-res.forEach(s => {
-opt += `<option value="${s.supplier_id}">${s.name}</option>`;
-});
-
-document.getElementById("supplier_id").innerHTML = opt;
-
-});
-
-// plants
-fetch(PLANT_API)
-.then(res => res.json())
-.then(res => {
-
-let opt = `<option value="">Select Plant</option>`;
-
-res.data.forEach(p => {
-opt += `<option value="${p.plant_id}">${p.name}</option>`;
-});
-
-document.getElementById("plant_id").innerHTML = opt;
+document.getElementById("notificationTable").innerHTML = rows;
 
 });
 
@@ -467,15 +424,15 @@ document.getElementById("plant_id").innerHTML = opt;
 
 
 // ================= SAVE (CREATE + UPDATE) =================
-function saveSupplierOrder() {
+function saveNotification() {
 
 let id = document.getElementById("edit_id").value;
 
 let data = {
-supplier_id: document.getElementById("supplier_id").value,
-plant_id: document.getElementById("plant_id").value,
-quantity: document.getElementById("quantity").value,
-delivery_status: document.getElementById("delivery_status").value
+user_id: document.getElementById("user_id").value,
+message: document.getElementById("message").value,
+type: document.getElementById("type").value,
+date: document.getElementById("date").value
 };
 
 let method = "POST";
@@ -497,28 +454,28 @@ body: JSON.stringify(data)
 .then(() => {
 alert("Saved");
 clearForm();
-loadSupplierOrders();
+loadNotifications();
 });
 
 }
 
 
 // ================= EDIT =================
-function editSupplierOrder(id, supplier_id, plant_id, quantity, status) {
+function editNotification(id, user_id, message, type, date) {
 
 document.getElementById("edit_id").value = id;
-document.getElementById("supplier_id").value = supplier_id;
-document.getElementById("plant_id").value = plant_id;
-document.getElementById("quantity").value = quantity;
-document.getElementById("delivery_status").value = status;
+document.getElementById("user_id").value = user_id;
+document.getElementById("message").value = message;
+document.getElementById("type").value = type;
+document.getElementById("date").value = date;
 
 }
 
 
 // ================= DELETE =================
-function deleteSupplierOrder(id) {
+function deleteNotification(id) {
 
-if(!confirm("Delete?")) return;
+if(!confirm("Delete this notification?")) return;
 
 fetch(`${API}/${id}`, {
 method: "DELETE"
@@ -526,7 +483,7 @@ method: "DELETE"
 .then(res => res.json())
 .then(() => {
 alert("Deleted");
-loadSupplierOrders();
+loadNotifications();
 });
 
 }
@@ -536,17 +493,16 @@ loadSupplierOrders();
 function clearForm() {
 
 document.getElementById("edit_id").value = "";
-document.getElementById("supplier_id").value = "";
-document.getElementById("plant_id").value = "";
-document.getElementById("quantity").value = "";
-document.getElementById("delivery_status").value = "";
+document.getElementById("user_id").value = "";
+document.getElementById("message").value = "";
+document.getElementById("type").value = "";
+document.getElementById("date").value = "";
 
 }
 
 
 // INIT
-loadSupplierOrders();
-loadDropdowns();
+loadNotifications();
 
 </script>
 </body>

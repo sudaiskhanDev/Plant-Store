@@ -4,8 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="../../Css/Admin Dashboard.css">
-<style>
-    /* ========== SUPPLIER ORDERS - MINT CONTRAST THEME (NO SIDEBAR) ========== */
+
+        <style>
+            /* ========== MAINTENANCES CRUD - MINT CONTRAST THEME (NO SIDEBAR) ========== */
 /* Color Theme:
    Light Base: #FFFFFF (White)
    Highlight (Light): #90EE90 (Light Green / Mint)
@@ -317,7 +318,7 @@ body {
         transform: scale(0.96);
     }
 }
-</style>
+        </style>
     <title>Document</title>
 </head>
 <body>
@@ -342,31 +343,34 @@ body {
         
        <div class="dashboard-content">
        
-           <h2>Supplier Orders</h2>
+           <h2>Maintenances</h2>
 
 <!-- FORM -->
 <div style="background:#fff;padding:10px;margin-bottom:20px;">
 
     <input type="hidden" id="edit_id">
 
-    <select id="supplier_id">
-        <option value="">Select Supplier</option>
-    </select>
-
     <select id="plant_id">
         <option value="">Select Plant</option>
     </select>
 
-    <input type="number" id="quantity" placeholder="Quantity">
-
-    <select id="delivery_status">
-        <option value="">Status</option>
-        <option value="pending">Pending</option>
-        <option value="delivered">Delivered</option>
-        <option value="cancelled">Cancelled</option>
+    <select id="task_type">
+        <option value="">Task Type</option>
+        <option value="watering">Watering</option>
+        <option value="pruning">Pruning</option>
+        <option value="fertilization">Fertilization</option>
     </select>
 
-    <button onclick="saveSupplierOrder()">Save</button>
+    <input type="date" id="scheduled_date">
+
+    <select id="status">
+        <option value="">Status</option>
+        <option value="pending">Pending</option>
+        <option value="in_progress">In Progress</option>
+        <option value="completed">Completed</option>
+    </select>
+
+    <button onclick="saveMaintenance()">Save</button>
 </div>
 
 <!-- TABLE -->
@@ -374,15 +378,15 @@ body {
     <thead>
         <tr>
             <th>ID</th>
-            <th>Supplier</th>
             <th>Plant</th>
-            <th>Qty</th>
+            <th>Task</th>
+            <th>Date</th>
             <th>Status</th>
             <th>Action</th>
         </tr>
     </thead>
 
-    <tbody id="supplierOrderTable"></tbody>
+    <tbody id="maintenanceTable"></tbody>
 </table>
              
         </div>
@@ -391,64 +395,48 @@ body {
     </div>
 <script>
 
-const API = "http://127.0.0.1:8000/api/supplier-orders";
-const SUPPLIER_API = "http://127.0.0.1:8000/api/suppliers";
+const API = "http://127.0.0.1:8000/api/v1/maintenances";
 const PLANT_API = "http://127.0.0.1:8000/api/plants";
 
 
 // ================= LOAD TABLE =================
-function loadSupplierOrders() {
+function loadMaintenance() {
 
 fetch(API)
 .then(res => res.json())
-.then(data => {
+.then(res => {
 
 let rows = "";
 
-data.forEach(item => {
+res.data.forEach(m => {
+
+let formattedDate = new Date(m.scheduled_date).toLocaleDateString('en-GB');
 
 rows += `
 <tr>
-<td>${item.supplier_order_id}</td>
-<td>${item.supplier_id}</td>
-<td>${item.plant_id}</td>
-<td>${item.quantity}</td>
-<td>${item.delivery_status}</td>
+<td>${m.maintenance_id}</td>
+<td>${m.plant_id}</td>
+<td>${m.task_type}</td>
+<td>${formattedDate}</td>
+<td>${m.status}</td>
 <td>
-<button onclick="editSupplierOrder(${item.supplier_order_id}, ${item.supplier_id}, ${item.plant_id}, ${item.quantity}, '${item.delivery_status}')">Edit</button>
-<button onclick="deleteSupplierOrder(${item.supplier_order_id})">Delete</button>
+<button onclick="editMaintenance(${m.maintenance_id}, ${m.plant_id}, '${m.task_type}', '${m.scheduled_date}', '${m.status}')">Edit</button>
+<button onclick="deleteMaintenance(${m.maintenance_id})">Delete</button>
 </td>
 </tr>
 `;
 
 });
 
-document.getElementById("supplierOrderTable").innerHTML = rows;
+document.getElementById("maintenanceTable").innerHTML = rows;
 
 });
 
 }
 
+// ================= LOAD PLANTS DROPDOWN =================
+function loadPlants() {
 
-// ================= LOAD DROPDOWNS =================
-function loadDropdowns() {
-
-// suppliers
-fetch(SUPPLIER_API)
-.then(res => res.json())
-.then(res => {
-
-let opt = `<option value="">Select Supplier</option>`;
-
-res.forEach(s => {
-opt += `<option value="${s.supplier_id}">${s.name}</option>`;
-});
-
-document.getElementById("supplier_id").innerHTML = opt;
-
-});
-
-// plants
 fetch(PLANT_API)
 .then(res => res.json())
 .then(res => {
@@ -467,15 +455,15 @@ document.getElementById("plant_id").innerHTML = opt;
 
 
 // ================= SAVE (CREATE + UPDATE) =================
-function saveSupplierOrder() {
+function saveMaintenance() {
 
 let id = document.getElementById("edit_id").value;
 
 let data = {
-supplier_id: document.getElementById("supplier_id").value,
 plant_id: document.getElementById("plant_id").value,
-quantity: document.getElementById("quantity").value,
-delivery_status: document.getElementById("delivery_status").value
+task_type: document.getElementById("task_type").value,
+scheduled_date: document.getElementById("scheduled_date").value,
+status: document.getElementById("status").value
 };
 
 let method = "POST";
@@ -497,28 +485,28 @@ body: JSON.stringify(data)
 .then(() => {
 alert("Saved");
 clearForm();
-loadSupplierOrders();
+loadMaintenance();
 });
 
 }
 
 
 // ================= EDIT =================
-function editSupplierOrder(id, supplier_id, plant_id, quantity, status) {
+function editMaintenance(id, plant_id, task, date, status) {
 
 document.getElementById("edit_id").value = id;
-document.getElementById("supplier_id").value = supplier_id;
 document.getElementById("plant_id").value = plant_id;
-document.getElementById("quantity").value = quantity;
-document.getElementById("delivery_status").value = status;
+document.getElementById("task_type").value = task;
+document.getElementById("scheduled_date").value = date;
+document.getElementById("status").value = status;
 
 }
 
 
 // ================= DELETE =================
-function deleteSupplierOrder(id) {
+function deleteMaintenance(id) {
 
-if(!confirm("Delete?")) return;
+if(!confirm("Delete this record?")) return;
 
 fetch(`${API}/${id}`, {
 method: "DELETE"
@@ -526,7 +514,7 @@ method: "DELETE"
 .then(res => res.json())
 .then(() => {
 alert("Deleted");
-loadSupplierOrders();
+loadMaintenance();
 });
 
 }
@@ -536,17 +524,17 @@ loadSupplierOrders();
 function clearForm() {
 
 document.getElementById("edit_id").value = "";
-document.getElementById("supplier_id").value = "";
 document.getElementById("plant_id").value = "";
-document.getElementById("quantity").value = "";
-document.getElementById("delivery_status").value = "";
+document.getElementById("task_type").value = "";
+document.getElementById("scheduled_date").value = "";
+document.getElementById("status").value = "";
 
 }
 
 
 // INIT
-loadSupplierOrders();
-loadDropdowns();
+loadMaintenance();
+loadPlants();
 
 </script>
 </body>

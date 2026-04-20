@@ -25,7 +25,7 @@ document.querySelector("button").addEventListener("click", async function () {
         // FORCE LOGOUT EVEN IF SERVER FAILS
         localStorage.removeItem("token");
         localStorage.removeItem("user");
-        window.location.href = ".././login.html";
+        window.location.href = "../../Login.html";
     }
 });
  
