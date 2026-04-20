@@ -1,0 +1,406 @@
+/* ========== ADMIN DASHBOARD - MINT CONTRAST THEME (WHITE BG) ========== */
+/* Color Theme:
+   Light Base: #FFFFFF (White)
+   Highlight (Light): #90EE90 (Light Green / Mint)
+   Navigation/Buttons: #358856 (Sea Green)
+   Deep Text: #0C3823 (Rich Dark Green)
+*/
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', 'Poppins', system-ui, -apple-system, 'Roboto', 'Helvetica Neue', sans-serif;
+    background: #FFFFFF;
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+/* ========== ADMIN DASHBOARD CONTAINER ========== */
+.admin-dashboard {
+    display: flex;
+    min-height: 100vh;
+    width: 100%;
+    background: #FFFFFF;
+}
+
+/* ========== SIDEBAR STYLES ========== */
+.side-bar {
+    width: 280px;
+    background: #FFFFFF;
+    border-right: 2px solid #90EE90;
+    box-shadow: 4px 0 20px rgba(12, 56, 35, 0.05);
+    padding: 2rem 0;
+    transition: all 0.3s ease;
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    overflow-y: auto;
+}
+
+/* Sidebar Heading */
+.side-bar h1 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #0C3823;
+    text-align: center;
+    padding: 0 1rem 1.5rem;
+    margin-bottom: 1rem;
+    border-bottom: 2px solid #90EE90;
+    letter-spacing: -0.3px;
+    position: relative;
+}
+
+.side-bar h1::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60px;
+    height: 3px;
+    background: linear-gradient(90deg, #90EE90, #358856);
+    border-radius: 3px;
+}
+
+/* Navigation Links Container */
+.pages-links {
+    padding: 0 1rem;
+}
+
+.pages-links ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.pages-links a {
+    text-decoration: none;
+    display: block;
+    transition: all 0.3s ease;
+}
+
+.pages-links li {
+    padding: 0.9rem 1.2rem;
+    font-size: 1rem;
+    font-weight: 600;
+    color: #0C3823;
+    border-radius: 1rem;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Hover effect for menu items */
+.pages-links li:hover {
+    background: #F0FFF0;
+    color: #358856;
+    transform: translateX(5px);
+}
+
+/* Active menu item (optional - add class 'active' to li) */
+.pages-links li.active {
+    background: #90EE90;
+    color: #0C3823;
+    box-shadow: 0 2px 8px rgba(144, 238, 144, 0.3);
+}
+
+/* Mint left accent on hover */
+.pages-links li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 4px;
+    background: #358856;
+    transform: scaleY(0);
+    transition: transform 0.3s ease;
+}
+
+.pages-links li:hover::before {
+    transform: scaleY(1);
+}
+
+/* ========== MAIN CONTENT AREA ========== */
+.dashboard-content {
+    flex: 1;
+    padding: 1.5rem;
+    background: #FFFFFF;
+    transition: all 0.3s ease;
+    min-height: 100vh;
+}
+
+/* ========== NAV BAR INSIDE DASHBOARD CONTENT ========== */
+.dashboard-content .nav-bar {
+    background: #FFFFFF;
+    border-bottom: 2px solid #90EE90;
+    padding: 1rem 1.5rem;
+    margin-bottom: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1rem;
+    border-radius: 1rem;
+    box-shadow: 0 2px 8px rgba(12, 56, 35, 0.05);
+}
+
+.dashboard-content .nav-bar h1 {
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: #0C3823;
+    letter-spacing: -0.3px;
+    margin: 0;
+    position: relative;
+    display: inline-block;
+}
+
+.dashboard-content .nav-bar h1::after {
+    content: '';
+    position: absolute;
+    bottom: -6px;
+    left: 0;
+    width: 50%;
+    height: 3px;
+    background: linear-gradient(90deg, #90EE90, #358856);
+    border-radius: 3px;
+}
+
+/* Logout Button */
+.dashboard-content .nav-bar button {
+    background: #358856;
+    border: none;
+    padding: 0.6rem 1.8rem;
+    border-radius: 2rem;
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: white;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-family: inherit;
+    letter-spacing: 0.3px;
+    box-shadow: 0 2px 8px rgba(53, 136, 86, 0.25);
+}
+
+.dashboard-content .nav-bar button:hover {
+    background: #2a6d44;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 14px rgba(53, 136, 86, 0.35);
+}
+
+.dashboard-content .nav-bar button:active {
+    transform: translateY(1px);
+}
+
+/* ========== RESPONSIVE DESIGN ========== */
+
+/* Tablet & Small Desktop */
+@media (max-width: 900px) {
+    .side-bar {
+        width: 240px;
+    }
+    
+    .side-bar h1 {
+        font-size: 1.3rem;
+        padding: 0 0.8rem 1.2rem;
+    }
+    
+    .pages-links li {
+        padding: 0.8rem 1rem;
+        font-size: 0.9rem;
+    }
+    
+    .dashboard-content {
+        padding: 1rem;
+    }
+    
+    .dashboard-content .nav-bar {
+        padding: 0.8rem 1.2rem;
+    }
+    
+    .dashboard-content .nav-bar h1 {
+        font-size: 1.4rem;
+    }
+}
+
+/* Mobile Landscape */
+@media (max-width: 768px) {
+    .admin-dashboard {
+        flex-direction: column;
+    }
+    
+    .side-bar {
+        width: 100%;
+        height: auto;
+        position: relative;
+        border-right: none;
+        border-bottom: 2px solid #90EE90;
+        padding: 1rem 0;
+        box-shadow: 0 4px 12px rgba(12, 56, 35, 0.05);
+    }
+    
+    .side-bar h1 {
+        font-size: 1.4rem;
+        padding: 0 1rem 1rem;
+        margin-bottom: 0.5rem;
+    }
+    
+    .pages-links ul {
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 0.8rem;
+    }
+    
+    .pages-links a {
+        flex: 0 0 auto;
+    }
+    
+    .pages-links li {
+        padding: 0.6rem 1.2rem;
+        font-size: 0.9rem;
+        border-radius: 2rem;
+    }
+    
+    .pages-links li:hover {
+        transform: translateY(-2px);
+    }
+    
+    .pages-links li::before {
+        display: none;
+    }
+    
+    .dashboard-content {
+        padding: 1rem;
+    }
+    
+    .dashboard-content .nav-bar {
+        flex-direction: column;
+        text-align: center;
+        gap: 0.8rem;
+        margin-bottom: 1.5rem;
+    }
+    
+    .dashboard-content .nav-bar h1::after {
+        left: 50%;
+        transform: translateX(-50%);
+        width: 40%;
+    }
+}
+
+/* Mobile Small */
+@media (max-width: 550px) {
+    .pages-links ul {
+        gap: 0.5rem;
+    }
+    
+    .pages-links li {
+        padding: 0.5rem 1rem;
+        font-size: 0.85rem;
+    }
+    
+    .dashboard-content .nav-bar {
+        padding: 0.8rem 1rem;
+    }
+    
+    .dashboard-content .nav-bar h1 {
+        font-size: 1.2rem;
+    }
+    
+    .dashboard-content .nav-bar button {
+        padding: 0.5rem 1.2rem;
+        font-size: 0.85rem;
+    }
+}
+
+/* Extra Small */
+@media (max-width: 380px) {
+    .side-bar h1 {
+        font-size: 1.2rem;
+    }
+    
+    .pages-links li {
+        padding: 0.4rem 0.8rem;
+        font-size: 0.8rem;
+    }
+    
+    .dashboard-content {
+        padding: 0.8rem;
+    }
+}
+
+/* ========== SCROLLBAR STYLING ========== */
+.side-bar::-webkit-scrollbar {
+    width: 6px;
+}
+
+.side-bar::-webkit-scrollbar-track {
+    background: #F0FFF0;
+    border-radius: 10px;
+}
+
+.side-bar::-webkit-scrollbar-thumb {
+    background: #90EE90;
+    border-radius: 10px;
+}
+
+.side-bar::-webkit-scrollbar-thumb:hover {
+    background: #358856;
+}
+
+/* ========== ANIMATIONS ========== */
+@keyframes fadeInLeft {
+    from {
+        opacity: 0;
+        transform: translateX(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.side-bar {
+    animation: fadeInLeft 0.4s ease-out;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.dashboard-content {
+    animation: fadeInUp 0.4s ease-out;
+}
+
+/* ========== TOUCH-FRIENDLY ADJUSTMENTS ========== */
+@media (hover: none) and (pointer: coarse) {
+    .pages-links li:hover {
+        transform: none;
+        background: transparent;
+    }
+    
+    .pages-links li:active {
+        background: #F0FFF0;
+    }
+    
+    .dashboard-content .nav-bar button:hover {
+        transform: none;
+    }
+    
+    .dashboard-content .nav-bar button:active {
+        transform: scale(0.96);
+    }
+}

@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eco Garden</title>
+    <link rel="stylesheet" href="./Css/Index.css">
+</head>
+<body>
+    <div class="main-front-page">
+
+
+
+
+        <div class="nav-bar">
+    <nav>
+        <h1>Eco Garden</h1>
+
+            <div class="ul">
+                <ul>
+                    <li><a href="./index.html">Home</a></li>
+                    <li><a href="#">Shop</a></li>
+                    <li><a href="#">Orders</a></li>
+                </ul>
+            </div>
+        <!-- AUTH BUTTONS -->
+        <div id="authLinks">
+            <a href="./Html/Login.html"><button>Login</button></a>
+            <a href="./Html/Register.html"><button>Register</button></a>
+        </div>
+
+        <!-- LOGOUT BUTTON -->
+        <button onclick="logout()" id="logoutBtn" style="display:none;">
+            Logout
+        </button>
+
+    </nav>
+</div>
+
+        <div class="hero-section">
+
+            <img src="./Assets/bg-1.png" alt="">
+            <img src="./Assets/bg-2.png" alt="">
+        </div>
+         
+      <div class="categories">
+
+    <div>
+        <img src="" alt="">
+        <h3>Indoor Plants</h3>
+    </div>
+
+    <div>
+        <img src="" alt="">
+        <h3>Outdoor Plants</h3>
+    </div>
+
+    <div>
+        <img src="" alt="">
+        <h3>Flowering Plants</h3>
+    </div>
+
+    <div>
+        <img src="" alt="">
+        <h3>Medicinal Plants</h3>
+    </div>
+
+    <div>
+        <img src="" alt="">
+        <h3>Fruit Plants</h3>
+    </div>
+
+    <div>
+        <img src="" alt="">
+        <h3>Vegetable Plants</h3>
+    </div>
+
+    <div>
+        <img src="" alt="">
+        <h3>Succulents / Cactus</h3>
+    </div>
+
+    <div>
+        <img src="" alt="">
+        <h3>Air Purifying Plants</h3>
+    </div>
+
+</div>
+
+    </div>
+
+
+
+    <script>
+
+window.onload = function () {
+
+    let token = localStorage.getItem("token");
+
+    if (token) {
+        document.getElementById("logoutBtn").style.display = "inline-block";
+        document.getElementById("authLinks").style.display = "none";
+    } else {
+        document.getElementById("logoutBtn").style.display = "none";
+        document.getElementById("authLinks").style.display = "block";
+    }
+}
+
+// 🔥 logout function (UPDATED)
+function logout() {
+
+    localStorage.removeItem("token");
+
+    // 🔥 page refresh so UI reset ho jaye
+    location.reload();
+}
+
+</script>
+</body>
+</html>

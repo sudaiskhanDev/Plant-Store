@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="../../Css/Admin Dashboard.css">
+<title>Admin Dashboard - Plants</title>
+ 
+<style>
+    /* ========== PLANT MANAGEMENT SYSTEM - MINT CONTRAST THEME ========== */
+/* Color Theme:
+   Light Base: #FFFFFF (White)
+   Highlight (Light): #90EE90 (Light Green / Mint)
+   Buttons: #358856 (Sea Green)
+   Deep Text: #0C3823 (Rich Dark Green)
+*/
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', 'Poppins', system-ui, -apple-system, 'Roboto', 'Helvetica Neue', sans-serif;
+    background: #FFFFFF;
+    min-height: 100vh;
+}
+
+/* ========== MAIN DASHBOARD LAYOUT (sidebar exists but we skip styling it) ========== */
+.main-admin-dashboard {
+    display: flex;
+    min-height: 100vh;
+    width: 100%;
+    background: #FFFFFF;
+}
+
+/* ========== DASHBOARD CONTENT (only this part gets styled) ========== */
+.dashboard-content {
+    flex: 1;
+    padding: 2rem;
+    background: #FFFFFF;
+    transition: all 0.3s ease;
+}
+
+/* Heading */
+.dashboard-content h2 {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: #0C3823;
+    margin-bottom: 1.5rem;
+    letter-spacing: -0.3px;
+    position: relative;
+    display: inline-block;
+}
+
+.dashboard-content h2::after {
+    content: '';
+    position: absolute;
+    bottom: -8px;
+    left: 0;
+    width: 60px;
+    height: 3px;
+    background: linear-gradient(90deg, #90EE90, #358856);
+    border-radius: 3px;
+}
+
+/* ========== INPUTS & SELECT ========== */
+.dashboard-content input,
+.dashboard-content select {
+    width: 100%;
+    max-width: 300px;
+    padding: 0.85rem 1.2rem;
+    margin-bottom: 1rem;
+    margin-right: 1rem;
+    border: 2px solid #E8F5E8;
+    border-radius: 1rem;
+    font-size: 1rem;
+    font-weight: 500;
+    background-color: #FFFFFF;
+    transition: all 0.3s ease;
+    outline: none;
+    font-family: inherit;
+    color: #0C3823;
+}
+
+.dashboard-content input:focus,
+.dashboard-content select:focus {
+    border-color: #90EE90;
+    box-shadow: 0 0 0 4px rgba(144, 238, 144, 0.2);
+}
+
+.dashboard-content input::placeholder {
+    color: #B8D9B8;
+    font-weight: 450;
+}
+
+/* Select dropdown arrow */
+.dashboard-content select {
+    cursor: pointer;
+    appearance: none;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23358856' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><polyline points='6 9 12 15 18 9'></polyline></svg>");
+    background-repeat: no-repeat;
+    background-position: right 1rem center;
+    background-size: 1rem;
+}
+
+/* ========== SAVE BUTTON ========== */
+.dashboard-content button {
+    background: #358856;
+    border: none;
+    padding: 0.85rem 1.8rem;
+    border-radius: 2rem;
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: white;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-family: inherit;
+    letter-spacing: 0.3px;
+    box-shadow: 0 2px 8px rgba(53, 136, 86, 0.25);
+    margin-bottom: 1.5rem;
+}
+
+.dashboard-content button:hover {
+    background: #2a6d44;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 14px rgba(53, 136, 86, 0.35);
+}
+
+.dashboard-content button:active {
+    transform: translateY(1px);
+}
+
+/* ========== TABLE STYLES ========== */
+.dashboard-content table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 0.5rem;
+    background: #FFFFFF;
+    border-radius: 1rem;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(12, 56, 35, 0.05);
+}
+
+.dashboard-content th,
+.dashboard-content td {
+    border: 1px solid #E8F5E8;
+    padding: 12px;
+    text-align: center;
+    color: #0C3823;
+}
+
+.dashboard-content th {
+    background: #F0FFF0;
+    font-weight: 700;
+    font-size: 0.95rem;
+    color: #0C3823;
+    border-bottom: 2px solid #90EE90;
+}
+
+.dashboard-content td {
+    font-size: 0.95rem;
+}
+
+/* Action Buttons inside table */
+.dashboard-content table button {
+    padding: 6px 14px;
+    margin: 0 4px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    border: none;
+    border-radius: 1.5rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    box-shadow: none;
+    margin-bottom: 0;
+}
+
+/* Edit button */
+.dashboard-content table button:first-of-type {
+    background: #358856;
+    color: white;
+}
+
+.dashboard-content table button:first-of-type:hover {
+    background: #2a6d44;
+    transform: translateY(-1px);
+}
+
+/* Delete button */
+.dashboard-content table button:last-of-type {
+    background: #c0392b;
+    color: white;
+}
+
+.dashboard-content table button:last-of-type:hover {
+    background: #a93226;
+    transform: translateY(-1px);
+}
+
+/* ========== RESPONSIVE DESIGN ========== */
+
+/* Tablet */
+@media (max-width: 900px) {
+    .dashboard-content {
+        padding: 1.5rem;
+    }
+    
+    .dashboard-content h2 {
+        font-size: 1.5rem;
+    }
+    
+    .dashboard-content input,
+    .dashboard-content select {
+        max-width: 100%;
+        margin-right: 0;
+    }
+}
+
+/* Mobile Landscape */
+@media (max-width: 768px) {
+    .dashboard-content {
+        padding: 1rem;
+    }
+    
+    .dashboard-content input,
+    .dashboard-content select {
+        width: 100%;
+        margin-right: 0;
+    }
+    
+    .dashboard-content button {
+        width: 100%;
+        text-align: center;
+    }
+    
+    /* Horizontal scroll for table */
+    .dashboard-content table {
+        display: block;
+        overflow-x: auto;
+        white-space: nowrap;
+    }
+    
+    .dashboard-content th,
+    .dashboard-content td {
+        white-space: nowrap;
+    }
+    
+    .dashboard-content table button {
+        padding: 5px 10px;
+    }
+}
+
+/* Small Mobile */
+@media (max-width: 480px) {
+    .dashboard-content h2 {
+        font-size: 1.3rem;
+    }
+    
+    .dashboard-content input,
+    .dashboard-content select {
+        padding: 0.7rem 0.9rem;
+        font-size: 0.9rem;
+    }
+    
+    .dashboard-content button {
+        padding: 0.7rem;
+        font-size: 0.9rem;
+    }
+    
+    .dashboard-content th,
+    .dashboard-content td {
+        padding: 8px;
+        font-size: 0.85rem;
+    }
+    
+    .dashboard-content table button {
+        padding: 4px 8px;
+        font-size: 0.75rem;
+    }
+}
+
+/* ========== ANIMATION ========== */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.dashboard-content {
+    animation: fadeInUp 0.4s ease-out;
+}
+
+/* ========== TOUCH-FRIENDLY ADJUSTMENTS ========== */
+@media (hover: none) and (pointer: coarse) {
+    .dashboard-content button:hover {
+        transform: none;
+    }
+    
+    .dashboard-content button:active {
+        transform: scale(0.96);
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="main-admin-dashboard">
+
+<!-- SIDEBAR -->
+  <div class="side-bar">
+        <h1>Admin Dashboard</h1>
+
+        <div class="pages-links">
+            <ul>
+                <a href="../Admin.html"><li>Home</li></a>
+                <a href="./Category.html"><li>Category</li></a>
+                <a href="./Plants.html"><li>Add Plants</li></a>
+            </ul>
+        </div>
+    </div>
+
+<!-- DASHBOARD CONTENT (YAHAN SAB KUCH HAI) -->
+<div class="dashboard-content">
+
+<h2>🌱 Plant Management System</h2>
+
+<!-- FORM -->
+<input type="hidden" id="plant_id">
+
+<input type="text" id="name" placeholder="Plant Name">
+
+<select id="category_id">
+    <option>Loading...</option>
+</select>
+
+<input type="number" id="price" placeholder="Price">
+<input type="number" id="stock_quantity" placeholder="Stock">
+<input type="text" id="description" placeholder="Description">
+
+<button onclick="savePlant()">Save</button>
+
+<!-- TABLE -->
+<table>
+<thead>
+<tr>
+    <th>ID</th>
+    <th>Name</th>
+    <th>Category</th>
+    <th>Price</th>
+    <th>Stock</th>
+    <th>Action</th>
+</tr>
+</thead>
+
+<tbody id="plantTable"></tbody>
+</table>
+
+</div>
+</div>
+
+<script>
+    const PLANT_API = "http://127.0.0.1:8000/api/plants";
+const CATEGORY_API = "http://127.0.0.1:8000/api/categories";
+
+let categoriesCache = []; // 🔥 for mapping names
+
+/* ================= CATEGORY LOAD ================= */
+async function loadCategories() {
+    const res = await fetch(CATEGORY_API);
+    const response = await res.json();
+
+    const data = response.data;
+
+    categoriesCache = data; // save for table mapping
+
+    let options = `<option value="">Select Category</option>`;
+
+    data.forEach(cat => {
+        options += `
+            <option value="${cat.category_id}">
+                ${cat.category_name}
+            </option>
+        `;
+    });
+
+    document.getElementById("category_id").innerHTML = options;
+}
+
+/* ================= GET CATEGORY NAME (IMPORTANT) ================= */
+function getCategoryName(id) {
+    const cat = categoriesCache.find(c => c.category_id == id);
+    return cat ? cat.category_name : "Unknown";
+}
+
+/* ================= PLANTS LOAD ================= */
+async function loadPlants() {
+    const res = await fetch(PLANT_API);
+    const response = await res.json();
+
+    const data = response.data;
+
+    let rows = "";
+
+    data.forEach(p => {
+        rows += `
+        <tr>
+            <td>${p.plant_id}</td>
+            <td>${p.name}</td>
+            <td>${getCategoryName(p.category_id)}</td>
+            <td>${p.price}</td>
+            <td>${p.stock_quantity}</td>
+            <td>
+                <button onclick="editPlant(${p.plant_id})">Edit</button>
+                <button onclick="deletePlant(${p.plant_id})">Delete</button>
+            </td>
+        </tr>`;
+    });
+
+    document.getElementById("plantTable").innerHTML = rows;
+}
+
+/* ================= SAVE PLANT ================= */
+async function savePlant() {
+
+    const id = document.getElementById("plant_id").value;
+
+    const plant = {
+        name: document.getElementById("name").value,
+        category_id: document.getElementById("category_id").value,
+        price: document.getElementById("price").value,
+        stock_quantity: document.getElementById("stock_quantity").value,
+        description: document.getElementById("description").value
+    };
+
+    const url = id ? `${PLANT_API}/${id}` : PLANT_API;
+    const method = id ? "PUT" : "POST";
+
+    await fetch(url, {
+        method: method,
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(plant)
+    });
+
+    clearForm();
+    loadPlants();
+}
+
+/* ================= EDIT PLANT ================= */
+async function editPlant(id) {
+
+    const res = await fetch(`${PLANT_API}/${id}`);
+    const response = await res.json();
+
+    const p = response.data ? response.data : response;
+
+    if (!p) {
+        console.error("Plant not found", response);
+        return;
+    }
+
+    document.getElementById("plant_id").value = p.plant_id;
+    document.getElementById("name").value = p.name;
+    document.getElementById("category_id").value = p.category_id;
+    document.getElementById("price").value = p.price;
+    document.getElementById("stock_quantity").value = p.stock_quantity;
+    document.getElementById("description").value = p.description;
+}
+
+/* ================= DELETE PLANT ================= */
+async function deletePlant(id) {
+
+    if (!confirm("Are you sure?")) return;
+
+    await fetch(`${PLANT_API}/${id}`, {
+        method: "DELETE"
+    });
+
+    loadPlants();
+}
+
+/* ================= CLEAR FORM ================= */
+function clearForm() {
+    document.getElementById("plant_id").value = "";
+    document.getElementById("name").value = "";
+    document.getElementById("category_id").value = "";
+    document.getElementById("price").value = "";
+    document.getElementById("stock_quantity").value = "";
+    document.getElementById("description").value = "";
+}
+
+/* ================= INIT ================= */
+loadCategories().then(() => {
+    loadPlants();
+});
+</script>
+
+</body>
+</html>

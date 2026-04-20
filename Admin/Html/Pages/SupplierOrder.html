@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="../../Css/Admin Dashboard.css">
+
+    <title>Document</title>
+</head>
+<body>
+      <div class="admin-dashboard">
+
+        <!-- Sidebar containing navigation links for admin modules -->
+        <div class="side-bar">
+            <h1>Admin Dashboard</h1>
+
+            <div class="pages-links">
+                <ul>
+                    <a href="./Admin.html"><li>Home</li></a>
+                    <a href="./Pages/Category.html"><li>Category</li></a>
+                    <a href="./Pages/Plants.html"><li>Add Plants</li></a>
+                    <a href="./Pages/Order.html"><li>Order</li></a>
+                    <a href="./Pages/OrderDetail.html"><li> Order Details</li></a>
+                </ul>
+            </div>
+        </div>
+        
+
+        
+       <div class="dashboard-content">
+       
+           <h2>Supplier Orders</h2>
+
+<!-- FORM -->
+<div style="background:#fff;padding:10px;margin-bottom:20px;">
+
+    <input type="hidden" id="edit_id">
+
+    <select id="supplier_id">
+        <option value="">Select Supplier</option>
+    </select>
+
+    <select id="plant_id">
+        <option value="">Select Plant</option>
+    </select>
+
+    <input type="number" id="quantity" placeholder="Quantity">
+
+    <select id="delivery_status">
+        <option value="">Status</option>
+        <option value="pending">Pending</option>
+        <option value="delivered">Delivered</option>
+        <option value="cancelled">Cancelled</option>
+    </select>
+
+    <button onclick="saveSupplierOrder()">Save</button>
+</div>
+
+<!-- TABLE -->
+<table border="1" width="100%" cellpadding="10">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Supplier</th>
+            <th>Plant</th>
+            <th>Qty</th>
+            <th>Status</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+
+    <tbody id="supplierOrderTable"></tbody>
+</table>
+             
+        </div>
+
+
+    </div>
+<script>
+
+const API = "http://127.0.0.1:8000/api/supplier-orders";
+const SUPPLIER_API = "http://127.0.0.1:8000/api/suppliers";
+const PLANT_API = "http://127.0.0.1:8000/api/plants";
+
+
+// ================= LOAD TABLE =================
+function loadSupplierOrders() {
+
+fetch(API)
+.then(res => res.json())
+.then(data => {
+
+let rows = "";
+
+data.forEach(item => {
+
+rows += `
+<tr>
+<td>${item.supplier_order_id}</td>
+<td>${item.supplier_id}</td>
+<td>${item.plant_id}</td>
+<td>${item.quantity}</td>
+<td>${item.delivery_status}</td>
+<td>
+<button onclick="editSupplierOrder(${item.supplier_order_id}, ${item.supplier_id}, ${item.plant_id}, ${item.quantity}, '${item.delivery_status}')">Edit</button>
+<button onclick="deleteSupplierOrder(${item.supplier_order_id})">Delete</button>
+</td>
+</tr>
+`;
+
+});
+
+document.getElementById("supplierOrderTable").innerHTML = rows;
+
+});
+
+}
+
+
+// ================= LOAD DROPDOWNS =================
+function loadDropdowns() {
+
+// suppliers
+fetch(SUPPLIER_API)
+.then(res => res.json())
+.then(res => {
+
+let opt = `<option value="">Select Supplier</option>`;
+
+res.forEach(s => {
+opt += `<option value="${s.supplier_id}">${s.name}</option>`;
+});
+
+document.getElementById("supplier_id").innerHTML = opt;
+
+});
+
+// plants
+fetch(PLANT_API)
+.then(res => res.json())
+.then(res => {
+
+let opt = `<option value="">Select Plant</option>`;
+
+res.data.forEach(p => {
+opt += `<option value="${p.plant_id}">${p.name}</option>`;
+});
+
+document.getElementById("plant_id").innerHTML = opt;
+
+});
+
+}
+
+
+// ================= SAVE (CREATE + UPDATE) =================
+function saveSupplierOrder() {
+
+let id = document.getElementById("edit_id").value;
+
+let data = {
+supplier_id: document.getElementById("supplier_id").value,
+plant_id: document.getElementById("plant_id").value,
+quantity: document.getElementById("quantity").value,
+delivery_status: document.getElementById("delivery_status").value
+};
+
+let method = "POST";
+let url = API;
+
+if(id){
+method = "PUT";
+url = `${API}/${id}`;
+}
+
+fetch(url, {
+method: method,
+headers: {
+"Content-Type": "application/json"
+},
+body: JSON.stringify(data)
+})
+.then(res => res.json())
+.then(() => {
+alert("Saved");
+clearForm();
+loadSupplierOrders();
+});
+
+}
+
+
+// ================= EDIT =================
+function editSupplierOrder(id, supplier_id, plant_id, quantity, status) {
+
+document.getElementById("edit_id").value = id;
+document.getElementById("supplier_id").value = supplier_id;
+document.getElementById("plant_id").value = plant_id;
+document.getElementById("quantity").value = quantity;
+document.getElementById("delivery_status").value = status;
+
+}
+
+
+// ================= DELETE =================
+function deleteSupplierOrder(id) {
+
+if(!confirm("Delete?")) return;
+
+fetch(`${API}/${id}`, {
+method: "DELETE"
+})
+.then(res => res.json())
+.then(() => {
+alert("Deleted");
+loadSupplierOrders();
+});
+
+}
+
+
+// ================= CLEAR =================
+function clearForm() {
+
+document.getElementById("edit_id").value = "";
+document.getElementById("supplier_id").value = "";
+document.getElementById("plant_id").value = "";
+document.getElementById("quantity").value = "";
+document.getElementById("delivery_status").value = "";
+
+}
+
+
+// INIT
+loadSupplierOrders();
+loadDropdowns();
+
+</script>
+</body>
+</html>

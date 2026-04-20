@@ -1,0 +1,744 @@
+/* ========== NAVIGATION BAR - MINT CONTRAST THEME ========== */
+/* Color Theme:
+   Light Base: #FFFFFF (White)
+   Highlight (Light): #90EE90 (Light Green / Mint)
+   Navigation: #358856 (Sea Green)
+   Deep Text: #0C3823 (Rich Dark Green)
+*/
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* ========== NAV BAR CONTAINER ========== */
+.nav-bar {
+    width: 100%;
+    background: #FFFFFF;
+    border-bottom: 2px solid #90EE90;
+    padding: 0.75rem 2rem;
+    box-shadow: 0 4px 20px rgba(12, 56, 35, 0.08);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    transition: all 0.3s ease;
+}
+
+/* ========== NAVIGATION FLEX LAYOUT ========== */
+nav {
+    max-width: 1280px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+/* ========== LOGO / SITE TITLE ========== */
+nav h1 {
+    font-family: 'Segoe UI', 'Poppins', system-ui, -apple-system, sans-serif;
+    font-size: 1.8rem;
+    font-weight: 700;
+    margin: 0;
+    color: #0C3823;
+    letter-spacing: -0.3px;
+    transition: all 0.3s ease;
+    cursor: default;
+    position: relative;
+}
+
+/* Subtle mint underline effect on logo */
+nav h1::after {
+    content: '';
+    position: absolute;
+    bottom: -4px;
+    left: 0;
+    width: 0%;
+    height: 3px;
+    background: linear-gradient(90deg, #90EE90, #358856);
+    transition: width 0.3s ease;
+    border-radius: 3px;
+}
+
+nav h1:hover::after {
+    width: 100%;
+}
+
+nav h1:hover {
+    transform: translateY(-2px);
+}
+
+/* ========== MENU (UL/LI) STYLES ========== */
+.ul {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+}
+
+.ul ul {
+    display: flex;
+    list-style: none;
+    gap: 2rem;
+    margin: 0;
+    padding: 0;
+}
+
+.ul li a {
+    font-family: inherit;
+    font-size: 1rem;
+    font-weight: 600;
+    color: #0C3823;
+    text-decoration: none;
+    padding: 0.5rem 0;
+    position: relative;
+    transition: all 0.3s ease;
+    letter-spacing: 0.3px;
+}
+
+/* Mint underline animation on hover */
+.ul li a::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0%;
+    height: 2px;
+    background: #358856;
+    transition: width 0.3s ease;
+    border-radius: 2px;
+}
+
+.ul li a:hover::after {
+    width: 100%;
+}
+
+.ul li a:hover {
+    color: #358856;
+    transform: translateY(-2px);
+}
+
+/* Active link state (optional) */
+.ul li a.active {
+    color: #358856;
+}
+
+.ul li a.active::after {
+    width: 100%;
+    background: #90EE90;
+}
+
+/* ========== AUTH BUTTONS CONTAINER ========== */
+#authLinks {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    transition: all 0.3s ease;
+}
+
+/* ========== BUTTONS BASE STYLES ========== */
+nav button {
+    font-family: inherit;
+    font-size: 0.95rem;
+    font-weight: 600;
+    padding: 0.5rem 1.6rem;
+    border-radius: 50px;
+    border: 2px solid transparent;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+    background: transparent;
+    letter-spacing: 0.3px;
+    white-space: nowrap;
+}
+
+/* ========== LOGIN BUTTON (Primary - Sea Green) ========== */
+#authLinks a:first-child button {
+    background: #358856;
+    border-color: #358856;
+    color: white;
+    box-shadow: 0 2px 8px rgba(53, 136, 86, 0.25);
+}
+
+#authLinks a:first-child button:hover {
+    background: #2a6d44;
+    border-color: #2a6d44;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(53, 136, 86, 0.35);
+}
+
+#authLinks a:first-child button:active {
+    transform: translateY(1px);
+}
+
+/* ========== REGISTER BUTTON (Secondary - Mint outline) ========== */
+#authLinks a:last-child button {
+    background: transparent;
+    border-color: #358856;
+    color: #358856;
+}
+
+#authLinks a:last-child button:hover {
+    background: #90EE90;
+    border-color: #358856;
+    color: #0C3823;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 14px rgba(144, 238, 144, 0.3);
+}
+
+#authLinks a:last-child button:active {
+    transform: translateY(1px);
+}
+
+/* ========== LOGOUT BUTTON ========== */
+#logoutBtn {
+    background: #358856;
+    border-color: #358856;
+    color: white;
+    box-shadow: 0 2px 8px rgba(53, 136, 86, 0.25);
+    transition: all 0.3s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+}
+
+#logoutBtn:hover {
+    background: #2a6d44;
+    border-color: #2a6d44;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(53, 136, 86, 0.35);
+}
+
+#logoutBtn:active {
+    transform: translateY(1px);
+}
+
+/* ========== FOCUS ACCESSIBILITY ========== */
+nav button:focus-visible,
+.ul li a:focus-visible {
+    outline: 3px solid #90EE90;
+    outline-offset: 3px;
+    border-radius: 50px;
+}
+
+/* ========== RESPONSIVE NAVBAR ========== */
+
+/* Tablet */
+@media (max-width: 900px) {
+    .nav-bar {
+        padding: 0.7rem 1.5rem;
+    }
+    
+    nav h1 {
+        font-size: 1.6rem;
+    }
+    
+    .ul ul {
+        gap: 1.2rem;
+    }
+    
+    .ul li a {
+        font-size: 0.9rem;
+    }
+    
+    nav button {
+        padding: 0.45rem 1.3rem;
+        font-size: 0.9rem;
+    }
+}
+
+/* Mobile Large */
+@media (max-width: 768px) {
+    nav {
+        flex-direction: column;
+        text-align: center;
+        gap: 0.8rem;
+    }
+    
+    nav h1 {
+        font-size: 1.5rem;
+    }
+    
+    .ul {
+        width: 100%;
+    }
+    
+    .ul ul {
+        justify-content: center;
+        gap: 1.5rem;
+        flex-wrap: wrap;
+    }
+    
+    .ul li a {
+        font-size: 0.9rem;
+        padding: 0.4rem 0;
+    }
+    
+    #authLinks {
+        justify-content: center;
+        gap: 0.8rem;
+    }
+    
+    nav button {
+        padding: 0.4rem 1.2rem;
+        font-size: 0.85rem;
+    }
+}
+
+/* Mobile Small */
+@media (max-width: 550px) {
+    .nav-bar {
+        padding: 0.6rem 1rem;
+    }
+    
+    nav h1 {
+        font-size: 1.3rem;
+    }
+    
+    .ul ul {
+        gap: 1rem;
+    }
+    
+    .ul li a {
+        font-size: 0.85rem;
+    }
+    
+    #authLinks {
+        gap: 0.6rem;
+    }
+    
+    nav button {
+        padding: 0.35rem 1rem;
+        font-size: 0.8rem;
+    }
+}
+
+/* Extra Small - stack menu vertically if needed */
+@media (max-width: 450px) {
+    .ul ul {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+    
+    .ul li a {
+        display: inline-block;
+        padding: 0.3rem 0;
+    }
+    
+    #authLinks {
+        flex-direction: column;
+        width: 100%;
+        gap: 0.5rem;
+    }
+    
+    nav button {
+        width: 100%;
+        text-align: center;
+        padding: 0.4rem 0.8rem;
+    }
+}
+
+/* ========== ANIMATION ========== */
+@keyframes fadeInDown {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+nav {
+    animation: fadeInDown 0.5s ease-out;
+}
+
+/* ========== SCROLL EFFECT ========== */
+.nav-bar.scrolled {
+    padding: 0.5rem 2rem;
+    box-shadow: 0 4px 25px rgba(12, 56, 35, 0.12);
+    background: rgba(255, 255, 255, 0.98);
+}
+
+/* ========== TOUCH-FRIENDLY ADJUSTMENTS ========== */
+@media (hover: none) and (pointer: coarse) {
+    .ul li a:hover::after {
+        width: 0%;
+    }
+    
+    .ul li a:active {
+        color: #358856;
+    }
+    
+    nav button:hover {
+        transform: none;
+    }
+    
+    #authLinks a:first-child button:hover,
+    #authLinks a:last-child button:hover,
+    #logoutBtn:hover {
+        transform: none;
+    }
+    
+    nav button:active {
+        transform: scale(0.96);
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* ========== HERO SECTION - MINT CONTRAST THEME ========== */
+/* Color Theme:
+   Light Base: #FFFFFF (White)
+   Highlight (Light): #90EE90 (Light Green / Mint)
+   Navigation: #358856 (Sea Green)
+   Deep Text: #0C3823 (Rich Dark Green)
+*/
+
+/* ========== HERO SECTION CONTAINER ========== */
+.hero-section {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
+    padding: 0;
+    background: linear-gradient(135deg, #FFFFFF 0%, #F0FFF0 100%);
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+    max-width: 1353px;
+    height: 470px;
+    margin: 0 auto;
+}
+
+/* Subtle mint gradient overlay */
+.hero-section::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle at 20% 40%, rgba(144, 238, 144, 0.08), transparent 70%);
+    pointer-events: none;
+}
+
+/* ========== IMAGES STYLES WITH FIXED SIZING & SLIDING ANIMATIONS ========== */
+.hero-section img {
+    flex: 1;
+    width: 50%;
+    height: 470px;
+    object-fit: cover;
+    box-shadow: 0 20px 35px -12px rgba(12, 56, 35, 0.2);
+    border: 3px solid #FFFFFF;
+    background: #FFFFFF;
+    
+    /* Transition for hover effects */
+    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    
+    /* Animation properties */
+    animation-duration: 0.8s;
+    animation-fill-mode: both;
+    animation-timing-function: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    
+    cursor: pointer;
+}
+
+/* First image - rounded corners left side */
+.hero-section img:first-child {
+    border-radius: 1.5rem 0 0 1.5rem;
+    animation-name: slideInFromLeft;
+}
+
+/* Second image - rounded corners right side */
+.hero-section img:last-child {
+    border-radius: 0 1.5rem 1.5rem 0;
+    animation-name: slideInFromRight;
+}
+
+/* Slide from Left Keyframe */
+@keyframes slideInFromLeft {
+    0% {
+        opacity: 0;
+        transform: translateX(-100px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/* Slide from Right Keyframe */
+@keyframes slideInFromRight {
+    0% {
+        opacity: 0;
+        transform: translateX(100px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/* ========== STAGGERED ANIMATION DELAYS ========== */
+.hero-section img:first-child {
+    animation-delay: 0.1s;
+}
+
+.hero-section img:last-child {
+    animation-delay: 0.3s;
+}
+
+/* ========== HOVER EFFECTS WITH SMOOTH TRANSITIONS ========== */
+.hero-section img:hover {
+    transform: scale(1.02);
+    box-shadow: 0 30px 45px -16px rgba(53, 136, 86, 0.35);
+    border-color: #90EE90; /* Mint border on hover */
+    transition: all 0.4s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+    filter: brightness(1.02);
+}
+
+/* Active/Tap effect */
+.hero-section img:active {
+    transform: scale(0.98);
+    transition: transform 0.1s ease;
+}
+
+/* ========== RESPONSIVE HERO SECTION ========== */
+
+/* Desktop Large - maintain exact size */
+@media (min-width: 1354px) {
+    .hero-section {
+        max-width: 1353px;
+        height: 470px;
+        margin: 0 auto;
+    }
+    
+    .hero-section img {
+        height: 470px;
+    }
+}
+
+/* Desktop Medium - scale down proportionally */
+@media (max-width: 1353px) and (min-width: 1025px) {
+    .hero-section {
+        width: 95%;
+        max-width: none;
+        height: auto;
+        aspect-ratio: 1353 / 470;
+    }
+    
+    .hero-section img {
+        height: auto;
+        min-height: 100%;
+    }
+}
+
+/* Tablet */
+@media (max-width: 1024px) {
+    .hero-section {
+        width: 100%;
+        height: auto;
+        aspect-ratio: 1353 / 470;
+        gap: 0;
+    }
+    
+    .hero-section img:first-child {
+        border-radius: 1rem 0 0 1rem;
+    }
+    
+    .hero-section img:last-child {
+        border-radius: 0 1rem 1rem 0;
+    }
+}
+
+/* Mobile Landscape */
+@media (max-width: 768px) {
+    .hero-section {
+        flex-direction: column;
+        height: auto;
+        aspect-ratio: auto;
+        gap: 0.5rem;
+        background: linear-gradient(135deg, #FFFFFF 0%, #F0FFF0 100%);
+    }
+    
+    .hero-section img {
+        width: 100%;
+        height: 250px;
+        border-radius: 1rem !important;
+    }
+    
+    /* Adjust animations for mobile - slide from bottom instead */
+    .hero-section img:first-child,
+    .hero-section img:last-child {
+        animation-name: slideInFromBottom;
+    }
+    
+    @keyframes slideInFromBottom {
+        0% {
+            opacity: 0;
+            transform: translateY(60px);
+        }
+        100% {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+}
+
+/* Mobile Portrait */
+@media (max-width: 640px) {
+    .hero-section {
+        gap: 0.5rem;
+    }
+    
+    .hero-section img {
+        height: 220px;
+    }
+    
+    .hero-section img:hover {
+        transform: scale(1.01);
+    }
+}
+
+/* Small Mobile */
+@media (max-width: 480px) {
+    .hero-section img {
+        height: 180px;
+    }
+    
+    .hero-section img:first-child,
+    .hero-section img:last-child {
+        border-radius: 0.8rem !important;
+    }
+}
+
+/* Extra Small */
+@media (max-width: 380px) {
+    .hero-section img {
+        height: 150px;
+    }
+}
+
+/* ========== ADDITIONAL SUBTLE EFFECTS ========== */
+
+/* Glow effect on image load */
+.hero-section img {
+    animation: subtleGlow 1.5s ease-out;
+}
+
+@keyframes subtleGlow {
+    0% {
+        filter: brightness(0.96);
+    }
+    50% {
+        filter: brightness(1.01);
+    }
+    100% {
+        filter: brightness(1);
+    }
+}
+
+/* Optional: Add a mint-colored shadow on hover */
+.hero-section img:hover {
+    box-shadow: 0 30px 45px -16px rgba(53, 136, 86, 0.4);
+}
+
+/* ========== TOUCH-FRIENDLY ADJUSTMENTS ========== */
+@media (hover: none) and (pointer: coarse) {
+    .hero-section img:hover {
+        transform: none;
+        border-color: #FFFFFF;
+    }
+    
+    .hero-section img:active {
+        transform: scale(0.98);
+        border-color: #90EE90;
+    }
+}
+
+/* ========== LOADING SKELETON (Optional - improves perceived performance) ========== */
+.hero-section img {
+    background: linear-gradient(110deg, #f0f0f0 8%, #e8e8e8 18%, #f0f0f0 33%);
+    background-size: 200% 100%;
+    animation: shimmer 1.5s linear infinite, slideInFromLeft 0.8s ease-out forwards;
+}
+
+@keyframes shimmer {
+    0% {
+        background-position: 200% 0;
+    }
+    100% {
+        background-position: -200% 0;
+    }
+}
+
+/* Remove shimmer after image loads */
+.hero-section img[src] {
+    background: #FFFFFF;
+    animation: slideInFromLeft 0.8s ease-out forwards, subtleGlow 1.5s ease-out;
+}
+
+.hero-section img:last-child[src] {
+    animation: slideInFromRight 0.8s ease-out forwards, subtleGlow 1.5s ease-out;
+}
+
+/* ========== REDUCED MOTION PREFERENCE ========== */
+@media (prefers-reduced-motion: reduce) {
+    .hero-section img {
+        animation: none !important;
+        transform: none !important;
+        transition: none !important;
+    }
+    
+    .hero-section img:hover {
+        transform: none !important;
+    }
+}
+
+/* ========== CENTER HERO SECTION ON PAGE ========== */
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.main-front-page {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}

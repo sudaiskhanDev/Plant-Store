@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <style>
+        /* ========== SUPPLIERS CRUD - MINT CONTRAST THEME (NO SIDEBAR) ========== */
+/* Color Theme:
+   Light Base: #FFFFFF (White)
+   Highlight (Light): #90EE90 (Light Green / Mint)
+   Buttons: #358856 (Sea Green)
+   Deep Text: #0C3823 (Rich Dark Green)
+*/
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', 'Poppins', system-ui, -apple-system, 'Roboto', 'Helvetica Neue', sans-serif;
+    background: #FFFFFF;
+    min-height: 100vh;
+}
+
+/* ========== ADMIN DASHBOARD LAYOUT (sidebar exists but we skip styling it) ========== */
+.admin-dashboard {
+    display: flex;
+    min-height: 100vh;
+    width: 100%;
+    background: #FFFFFF;
+}
+
+/* ========== DASHBOARD CONTENT (only this part gets styled) ========== */
+.dashboard-content {
+    flex: 1;
+    padding: 2rem;
+    background: #FFFFFF;
+    transition: all 0.3s ease;
+}
+
+/* Heading */
+.dashboard-content h2 {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: #0C3823;
+    margin-bottom: 1.5rem;
+    letter-spacing: -0.3px;
+    position: relative;
+    display: inline-block;
+}
+
+.dashboard-content h2::after {
+    content: '';
+    position: absolute;
+    bottom: -8px;
+    left: 0;
+    width: 60px;
+    height: 3px;
+    background: linear-gradient(90deg, #90EE90, #358856);
+    border-radius: 3px;
+}
+
+/* ========== FORM SECTION ========== */
+.dashboard-content div[style*="background:#fff;padding:10px;margin-bottom:20px;"] {
+    background: #FFFFFF !important;
+    padding: 1rem !important;
+    margin-bottom: 2rem !important;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    align-items: flex-end;
+    border-radius: 1rem;
+    box-shadow: 0 2px 8px rgba(12, 56, 35, 0.05);
+}
+
+.dashboard-content input {
+    flex: 1;
+    min-width: 180px;
+    padding: 0.85rem 1.2rem;
+    border: 2px solid #E8F5E8;
+    border-radius: 1rem;
+    font-size: 1rem;
+    font-weight: 500;
+    background-color: #FFFFFF;
+    transition: all 0.3s ease;
+    outline: none;
+    font-family: inherit;
+    color: #0C3823;
+}
+
+.dashboard-content input:focus {
+    border-color: #90EE90;
+    box-shadow: 0 0 0 4px rgba(144, 238, 144, 0.2);
+}
+
+.dashboard-content input::placeholder {
+    color: #B8D9B8;
+    font-weight: 450;
+}
+
+/* Save Button */
+.dashboard-content button {
+    background: #358856;
+    border: none;
+    padding: 0.85rem 1.8rem;
+    border-radius: 2rem;
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: white;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-family: inherit;
+    letter-spacing: 0.3px;
+    box-shadow: 0 2px 8px rgba(53, 136, 86, 0.25);
+}
+
+.dashboard-content button:hover {
+    background: #2a6d44;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 14px rgba(53, 136, 86, 0.35);
+}
+
+.dashboard-content button:active {
+    transform: translateY(1px);
+}
+
+/* ========== TABLE STYLES ========== */
+.dashboard-content table {
+    width: 100%;
+    border-collapse: collapse;
+    background: #FFFFFF;
+    border-radius: 1rem;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(12, 56, 35, 0.05);
+    margin-top: 1rem;
+}
+
+.dashboard-content th,
+.dashboard-content td {
+    border: 1px solid #E8F5E8;
+    padding: 12px;
+    text-align: center;
+    color: #0C3823;
+}
+
+.dashboard-content th {
+    background: #F0FFF0;
+    font-weight: 700;
+    font-size: 0.95rem;
+    color: #0C3823;
+    border-bottom: 2px solid #90EE90;
+}
+
+.dashboard-content td {
+    font-size: 0.95rem;
+}
+
+/* Action Buttons inside table */
+.dashboard-content table button {
+    padding: 6px 14px;
+    margin: 0 4px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    border: none;
+    border-radius: 1.5rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    box-shadow: none;
+}
+
+/* Edit button */
+.dashboard-content table button:first-of-type {
+    background: #358856;
+    color: white;
+}
+
+.dashboard-content table button:first-of-type:hover {
+    background: #2a6d44;
+    transform: translateY(-1px);
+}
+
+/* Delete button */
+.dashboard-content table button:last-of-type {
+    background: #c0392b;
+    color: white;
+}
+
+.dashboard-content table button:last-of-type:hover {
+    background: #a93226;
+    transform: translateY(-1px);
+}
+
+/* ========== RESPONSIVE DESIGN ========== */
+
+/* Tablet */
+@media (max-width: 900px) {
+    .dashboard-content {
+        padding: 1.5rem;
+    }
+    
+    .dashboard-content h2 {
+        font-size: 1.5rem;
+    }
+    
+    .dashboard-content input {
+        min-width: 140px;
+    }
+}
+
+/* Mobile Landscape */
+@media (max-width: 768px) {
+    .dashboard-content {
+        padding: 1rem;
+    }
+    
+    .dashboard-content div[style*="background:#fff;padding:10px;margin-bottom:20px;"] {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    
+    .dashboard-content input {
+        width: 100%;
+        min-width: auto;
+    }
+    
+    .dashboard-content button {
+        width: 100%;
+        text-align: center;
+    }
+    
+    /* Horizontal scroll for table */
+    .dashboard-content table {
+        display: block;
+        overflow-x: auto;
+        white-space: nowrap;
+    }
+    
+    .dashboard-content th,
+    .dashboard-content td {
+        white-space: nowrap;
+    }
+    
+    .dashboard-content table button {
+        padding: 5px 10px;
+    }
+}
+
+/* Small Mobile */
+@media (max-width: 480px) {
+    .dashboard-content h2 {
+        font-size: 1.3rem;
+    }
+    
+    .dashboard-content input {
+        padding: 0.7rem 0.9rem;
+        font-size: 0.9rem;
+    }
+    
+    .dashboard-content button {
+        padding: 0.7rem;
+        font-size: 0.9rem;
+    }
+    
+    .dashboard-content th,
+    .dashboard-content td {
+        padding: 8px;
+        font-size: 0.85rem;
+    }
+    
+    .dashboard-content table button {
+        padding: 4px 8px;
+        font-size: 0.75rem;
+    }
+}
+
+/* ========== ANIMATION ========== */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.dashboard-content {
+    animation: fadeInUp 0.4s ease-out;
+}
+
+/* ========== TOUCH-FRIENDLY ADJUSTMENTS ========== */
+@media (hover: none) and (pointer: coarse) {
+    .dashboard-content button:hover {
+        transform: none;
+    }
+    
+    .dashboard-content button:active {
+        transform: scale(0.96);
+    }
+}
+    </style>
+        <link rel="stylesheet" href="../../Css/Admin Dashboard.css">
+
+    <title>Document</title>
+</head>
+<body>
+      <div class="admin-dashboard">
+
+        <!-- Sidebar containing navigation links for admin modules -->
+        <div class="side-bar">
+            <h1>Admin Dashboard</h1>
+
+            <div class="pages-links">
+                <ul>
+                    <a href="./Admin.html"><li>Home</li></a>
+                    <a href="./Pages/Category.html"><li>Category</li></a>
+                    <a href="./Pages/Plants.html"><li>Add Plants</li></a>
+                    <a href="./Pages/Order.html"><li>Order</li></a>
+                    <a href="./Pages/OrderDetail.html"><li> Order Details</li></a>
+                </ul>
+            </div>
+        </div>
+        
+
+        
+       <div class="dashboard-content">
+       
+           <h2>Suppliers</h2>
+
+<!-- FORM -->
+<div style="background:#fff;padding:10px;margin-bottom:20px;">
+
+    <input type="hidden" id="edit_id">
+
+    <input type="text" id="name" placeholder="Supplier Name">
+    <input type="text" id="contact" placeholder="Contact (10-15 digits)">
+    <input type="text" id="address" placeholder="Address">
+
+    <button onclick="saveSupplier()">Save</button>
+</div>
+
+<!-- TABLE -->
+<table border="1" width="100%" cellpadding="10">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Contact</th>
+            <th>Address</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+
+    <tbody id="supplierTable"></tbody>
+</table>
+             
+        </div>
+
+
+    </div>
+
+
+    <script>
+
+const API = "http://127.0.0.1:8000/api/suppliers";
+
+
+// ================= READ =================
+function loadSuppliers() {
+
+fetch(API)
+.then(res => res.json())
+.then(data => {
+
+let rows = "";
+
+data.forEach(s => {
+
+rows += `
+<tr>
+<td>${s.supplier_id}</td>
+<td>${s.name}</td>
+<td>${s.contact}</td>
+<td>${s.address}</td>
+<td>
+<button onclick="editSupplier(${s.supplier_id}, '${s.name}', '${s.contact}', '${s.address}')">Edit</button>
+<button onclick="deleteSupplier(${s.supplier_id})">Delete</button>
+</td>
+</tr>
+`;
+
+});
+
+document.getElementById("supplierTable").innerHTML = rows;
+
+});
+
+}
+
+
+// ================= SAVE (CREATE + UPDATE) =================
+function saveSupplier() {
+
+let id = document.getElementById("edit_id").value;
+
+let data = {
+name: document.getElementById("name").value,
+contact: document.getElementById("contact").value,
+address: document.getElementById("address").value
+};
+
+let method = "POST";
+let url = API;
+
+if(id){
+method = "PUT";
+url = `${API}/${id}`;
+}
+
+fetch(url, {
+method: method,
+headers: {
+"Content-Type": "application/json"
+},
+body: JSON.stringify(data)
+})
+.then(res => res.json())
+.then(() => {
+alert("Saved Successfully");
+clearForm();
+loadSuppliers();
+});
+
+}
+
+
+// ================= EDIT =================
+function editSupplier(id, name, contact, address) {
+
+document.getElementById("edit_id").value = id;
+document.getElementById("name").value = name;
+document.getElementById("contact").value = contact;
+document.getElementById("address").value = address;
+
+}
+
+
+// ================= DELETE =================
+function deleteSupplier(id) {
+
+if(!confirm("Delete this supplier?")) return;
+
+fetch(`${API}/${id}`, {
+method: "DELETE"
+})
+.then(res => res.json())
+.then(() => {
+alert("Deleted");
+loadSuppliers();
+});
+
+}
+
+
+// ================= CLEAR =================
+function clearForm() {
+
+document.getElementById("edit_id").value = "";
+document.getElementById("name").value = "";
+document.getElementById("contact").value = "";
+document.getElementById("address").value = "";
+
+}
+
+
+// INIT
+loadSuppliers();
+
+</script>
+</body>
+</html>

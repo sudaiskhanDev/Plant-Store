@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../../Css/Admin Dashboard.css">
+    <title>Document</title>
+    <style>
+        /* ========== ORDERS LIST - MINT CONTRAST THEME (NO SIDEBAR) ========== */
+/* Color Theme:
+   Light Base: #FFFFFF (White)
+   Highlight (Light): #90EE90 (Light Green / Mint)
+   Buttons: #358856 (Sea Green)
+   Deep Text: #0C3823 (Rich Dark Green)
+*/
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', 'Poppins', system-ui, -apple-system, 'Roboto', 'Helvetica Neue', sans-serif;
+    background: #FFFFFF;
+    min-height: 100vh;
+}
+
+/* ========== ADMIN DASHBOARD LAYOUT (sidebar exists but we skip styling it) ========== */
+.admin-dashboard {
+    display: flex;
+    min-height: 100vh;
+    width: 100%;
+    background: #FFFFFF;
+}
+
+/* ========== DASHBOARD CONTENT (only this part gets styled) ========== */
+.dashboard-content {
+    flex: 1;
+    padding: 2rem;
+    background: #FFFFFF;
+    transition: all 0.3s ease;
+}
+
+/* Heading */
+.dashboard-content h2 {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: #0C3823;
+    margin-bottom: 1.5rem;
+    letter-spacing: -0.3px;
+    position: relative;
+    display: inline-block;
+}
+
+.dashboard-content h2::after {
+    content: '';
+    position: absolute;
+    bottom: -8px;
+    left: 0;
+    width: 60px;
+    height: 3px;
+    background: linear-gradient(90deg, #90EE90, #358856);
+    border-radius: 3px;
+}
+
+/* ========== TABLE STYLES ========== */
+.dashboard-content table {
+    width: 100%;
+    border-collapse: collapse;
+    background: #FFFFFF;
+    border-radius: 1rem;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(12, 56, 35, 0.05);
+}
+
+.dashboard-content th,
+.dashboard-content td {
+    border: 1px solid #E8F5E8;
+    padding: 12px;
+    text-align: center;
+    color: #0C3823;
+}
+
+.dashboard-content th {
+    background: #F0FFF0;
+    font-weight: 700;
+    font-size: 0.95rem;
+    color: #0C3823;
+    border-bottom: 2px solid #90EE90;
+}
+
+.dashboard-content td {
+    font-size: 0.95rem;
+}
+
+/* Action button inside table */
+.dashboard-content table button {
+    background: #c0392b;
+    border: none;
+    padding: 6px 14px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: white;
+    border-radius: 1.5rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-family: inherit;
+    box-shadow: 0 2px 6px rgba(192, 57, 43, 0.2);
+}
+
+.dashboard-content table button:hover {
+    background: #a93226;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 10px rgba(192, 57, 43, 0.3);
+}
+
+.dashboard-content table button:active {
+    transform: translateY(1px);
+}
+
+/* ========== RESPONSIVE DESIGN ========== */
+
+/* Tablet */
+@media (max-width: 900px) {
+    .dashboard-content {
+        padding: 1.5rem;
+    }
+    
+    .dashboard-content h2 {
+        font-size: 1.5rem;
+    }
+    
+    .dashboard-content th,
+    .dashboard-content td {
+        padding: 10px;
+    }
+}
+
+/* Mobile Landscape */
+@media (max-width: 768px) {
+    .dashboard-content {
+        padding: 1rem;
+    }
+    
+    /* Make table horizontally scrollable */
+    .dashboard-content table {
+        display: block;
+        overflow-x: auto;
+        white-space: nowrap;
+    }
+    
+    .dashboard-content th,
+    .dashboard-content td {
+        white-space: nowrap;
+    }
+    
+    .dashboard-content table button {
+        padding: 5px 10px;
+        font-size: 0.8rem;
+    }
+}
+
+/* Small Mobile */
+@media (max-width: 480px) {
+    .dashboard-content h2 {
+        font-size: 1.3rem;
+    }
+    
+    .dashboard-content th,
+    .dashboard-content td {
+        padding: 8px;
+        font-size: 0.85rem;
+    }
+    
+    .dashboard-content table button {
+        padding: 4px 8px;
+        font-size: 0.75rem;
+    }
+}
+
+/* ========== ANIMATION ========== */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.dashboard-content {
+    animation: fadeInUp 0.4s ease-out;
+}
+
+/* ========== TOUCH-FRIENDLY ADJUSTMENTS ========== */
+@media (hover: none) and (pointer: coarse) {
+    .dashboard-content table button:hover {
+        transform: none;
+    }
+    
+    .dashboard-content table button:active {
+        transform: scale(0.96);
+    }
+}
+    </style>
+</head>
+<body>
+     <div class="admin-dashboard">
+
+        <!-- Sidebar containing navigation links for admin modules -->
+        <div class="side-bar">
+            <h1>Admin Dashboard</h1>
+
+            <div class="pages-links">
+                <ul>
+                    <a href="./Admin.html"><li>Home</li></a>
+                    <a href="./Pages/Category.html"><li>Category</li></a>
+                    <a href="./Pages/Plants.html"><li>Add Plants</li></a>
+                    <a href="./Pages/Order.html"><li>Order</li></a>
+                </ul>
+            </div>
+        </div>
+        
+
+        
+
+<div class="dashboard-content">
+
+    <h2>Orders List</h2>
+
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Date</th>
+                <th>Total</th>
+                <th>Status</th>
+                <th>Customer</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody id="orderTable">
+        </tbody>
+    </table>
+
+</div>
+
+
+
+    </div>
+
+
+
+
+
+
+
+
+
+    <script>
+
+const API_URL = "http://127.0.0.1:8000/api/orders";
+
+// READ (GET)
+function loadOrders() {
+    fetch(API_URL)
+    .then(res => res.json())
+    .then(data => {
+
+        let rows = '';
+
+        data.data.forEach(order => {
+            rows += `
+                <tr>
+                    <td>${order.order_id}</td>
+                    <td>${order.order_date}</td>
+                    <td>${order.total_amount}</td>
+                    <td>${order.status}</td>
+                    <td>${order.customer ? order.customer.name : 'N/A'}</td>
+                    <td>
+                        <button onclick="deleteOrder(${order.order_id})">Delete</button>
+                    </td>
+                </tr>
+            `;
+        });
+
+        document.getElementById('orderTable').innerHTML = rows;
+
+    })
+    .catch(err => console.log(err));
+}
+
+
+// DELETE
+function deleteOrder(id) {
+
+    if (!confirm("Are you sure?")) return;
+
+    fetch(`${API_URL}/${id}`, {
+        method: 'DELETE'
+    })
+    .then(res => res.json())
+    .then(data => {
+        alert("Deleted Successfully");
+        loadOrders(); // reload
+    })
+    .catch(err => console.log(err));
+}
+
+
+// initial load
+loadOrders();
+
+</script>
+</body>
+</html>
